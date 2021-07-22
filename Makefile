@@ -1,6 +1,7 @@
 NAME	:= fractol
 SRCS	:= $(wildcard ./srcs/*.c)
 OBJS	:= $(SRCS:.c=.o)
+DEPS	:= $(SRCS:.c=.d)
 LIBFT	:= libft
 LIBMLX	:= minilibx-linux
 INCLUDES:= -Iinclude -I$(LIBFT) -I$(LIBMLX) -I/usr/X11/include
@@ -13,22 +14,28 @@ LIBS	:= -L$(LIBFT) -lft \
 
 all		: $(NAME)
 
-$(NAME)	: clone $(OBJS)
+-include $(DEPS)
+
+$(NAME)	: $(LIBMLX) $(OBJS)
 # $(MAKE) -C $(LIBFT)
 	$(MAKE) -C $(LIBMLX)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
 
-clone	:
+$(LIBMLX):
 ifneq ($(shell echo ${LIBMLX}), $(shell ls | grep ${LIBMLX})))
 	git clone https://github.com/42Paris/minilibx-linux.git
 endif
+
+
+%.o : %.c
+	$(CC) $(CFLAGS) -c -MMD -MF $(patsubst %.o,%.d,$@) -o $@ $<
 
 clean	:
 # $(MAKE) clean -C $(LIBFT)
 ifeq ($(shell echo ${LIBMLX}), $(shell ls | grep ${LIBMLX})))
 	$(MAKE) clean -C $(LIBMLX)
 endif
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(DEPS)
 
 fclean	: clean
 # $(MAKE) fclean -C $(LIBFT)
