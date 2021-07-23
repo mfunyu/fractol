@@ -36,33 +36,34 @@ void	put_julia(t_mlx *mlx)
 	mlx->image = img;
 }
 
-bool	is_in_mandelbrot_set(double x, double y)
+int	mandelbrot_set(double x, double y, t_fractal *frac)
 {
 	double	zx;
 	double	zy;
 	double	save_x;
-	int		i;
+	int		n;
 
-	x = x / (WIDTH / (X_MAX - X_MIN)) + X_MIN;
-	y = y / (HEIGHT / (Y_MAX - Y_MIN)) + Y_MIN;
+	x = x / (WIDTH / (frac->x_max - frac->x_min)) + frac->x_min;
+	y = y / (HEIGHT / (frac->y_max - frac->y_min)) + frac->y_min;
 	zx = 0;
 	zy = 0;
-	i = -1;
-	while (++i < LOOP)
+	n = -1;
+	while (++n < LOOP)
 	{
 		if (sqrt(zx * zx + zy * zy) > DIVERGE)
-			return (false);
+			return (n);
 		save_x = zx;
 		zx = zx * zx - zy * zy + x;
 		zy = 2 * save_x * zy + y;
 	}
-	return (true);
+	return (0);
 }
 
-void	put_mandelbrot(t_mlx *mlx)
+int	put_mandelbrot(t_mlx *mlx, t_fractal *frac)
 {
 	int		x;
 	int		y;
+	int		n;
 	t_img	img;
 
 	init_t_img(&img, mlx);
@@ -72,13 +73,16 @@ void	put_mandelbrot(t_mlx *mlx)
 		x = 0;
 		while (x < HEIGHT)
 		{
-			if (is_in_mandelbrot_set(x, y))
-				mlx_pixel_put_to_img(&img, x, y, 255);
-			else
+			n = mandelbrot_set(x, y, frac);
+			if (!n)
 				mlx_pixel_put_to_img(&img, x, y, 0);
+			else
+				mlx_pixel_put_to_img(&img, x, y, set_gradation_color(360 / LOOP * n));
 			x++;
 		}
 		y++;
 	}
 	mlx->image = img;
+	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image.image, 0, 0);
+	return (0);
 }
