@@ -73,6 +73,9 @@ typedef struct s_mlx
 */
 int		put_mandelbrot(t_mlx *mlx, t_fractal *frac);
 
+int		zoom(int button, int x, int y, t_mlx *mlx);
+
+int		mandelbrot_set(double x, double y, t_fractal *frac);
 /*
 ** color
 */
