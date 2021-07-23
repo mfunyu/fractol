@@ -36,50 +36,40 @@ void	shift_range(double *outer, double *inner, double diff, double px_size)
 		*outer = *outer + px_size * (ZOOM_SPEED * 2);
 }
 
-void	set_zoom(t_fractal *fractal, int x_ptr, int y_ptr)
+double	set_new_size(t_fractal *fractal, double size_per_px, bool x)
 {
-	double	x_dif;
-	double	y_dif;
-	double	x_pixel;
-	double	y_pixel;
+	double	old_size;
+	double	change_size;
+	double	new_size;
 
-	x_dif = x_ptr - WIDTH / 2;
-	y_dif = y_ptr - HEIGHT / 2;
-	x_pixel = (fractal->x_max - fractal->x_min) / WIDTH;
-	y_pixel = (fractal->y_max - fractal->y_min) / WIDTH;
-	if (fractal->zoom == 1)
-	{
-		if (x_dif < 0)
-			shift_range(&fractal->x_max, &fractal->x_min, -x_dif, -x_pixel);
-		else
-			shift_range(&fractal->x_min, &fractal->x_max, x_dif, x_pixel);
-		if (y_dif < 0)
-			shift_range(&fractal->y_max, &fractal->y_min, -y_dif, -y_pixel);
-		else
-			shift_range(&fractal->y_min, &fractal->y_max, y_dif, y_pixel);
-	}
-	else if (fractal->zoom == -1)
-	{
-		if (x_dif < 0)
-			shift_range(&fractal->x_min, &fractal->x_max, -x_dif, -x_pixel);
-		else
-			shift_range(&fractal->x_max, &fractal->x_min, x_dif, x_pixel);
-		if (y_dif < 0)
-			shift_range(&fractal->y_min, &fractal->y_max, -y_dif, -y_pixel);
-		else
-		shift_range(&fractal->y_max, &fractal->y_min, y_dif, y_pixel);
-	}
-	// x_mid = x_min + x_ptr * x_pixel;
-	// fractal->x_max = fractal->x_max - (fractal->zoom * x_pixel * ZOOM_SPEED);
-	// fractal->x_min = fractal->x_min + (fractal->zoom * x_pixel * ZOOM_SPEED);
-	// fractal->y_max = fractal->y_max - (fractal->zoom * y_pixel * ZOOM_SPEED);
-	// fractal->y_min = fractal->y_min + (fractal->zoom * y_pixel * ZOOM_SPEED);
+	if (x)
+		old_size = fractal->x_max - fractal->x_min;
+	else
+		old_size = fractal->y_max - fractal->y_min;
+	change_size = ZOOM_SPEED * size_per_px * fractal->zoom;
+	new_size = old_size - change_size;
+	return (new_size);
+}
+
+void	set_zoom(t_fractal *fractal, int x_fix, int y_fix)
+{
+	double	x_size_per_px;
+	double	y_size_per_px;
+	double	new_x_size;
+	double	new_y_size;
+
+	x_size_per_px = (fractal->x_max - fractal->x_min) / WIDTH;
+	y_size_per_px = (fractal->y_max - fractal->y_min) / WIDTH;
+	new_x_size = set_new_size(fractal, x_size_per_px, true);
+	new_y_size = set_new_size(fractal, y_size_per_px, false);
+	fractal->x_min += x_fix * x_size_per_px - new_x_size * x_fix / WIDTH;
+	fractal->x_max = fractal->x_min + new_x_size;
+	fractal->y_min += y_fix * y_size_per_px - new_y_size * y_fix / HEIGHT;
+	fractal->y_max = fractal->y_min + new_y_size;
 }
 
 int	zoom(int button, int x, int y, t_mlx *mlx)
 {
-	DI(x);
-	DI(y);
 	if (button == UP)
 	{
 		mlx->fractal->zoom = 1;

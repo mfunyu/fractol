@@ -10,7 +10,7 @@
 
 # define LOOP 30
 # define DIVERGE 10.0
-# define ZOOM_SPEED 10
+# define ZOOM_SPEED 20
 
 # define X_MAX 2
 # define X_MIN -2
@@ -54,8 +54,6 @@ typedef struct s_img
 
 typedef struct s_fractal
 {
-	int		x_mid;
-	int		y_mid;
 	double	x_max;
 	double	x_min;
 	double	y_max;
