@@ -12,7 +12,7 @@ int	mandelbrot_set(double x, double y, t_fractal *frac)
 	zx = 0;
 	zy = 0;
 	n = -1;
-	while (++n < LOOP)
+	while (++n < frac->loop)
 	{
 		if (sqrt(zx * zx + zy * zy) > DIVERGE)
 			return (n);

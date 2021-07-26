@@ -8,14 +8,16 @@
 # include "math.h"
 # include "X11/Xlib.h"
 
-# define LOOP 30
-# define DIVERGE 10.0
-# define ZOOM_SPEED 20
+# define ZOOM_SPEED 30
+# define IGNORE_FREQ 3
 
+/*
+** default settings
+*/
+# define LOOP 30
+# define DIVERGE 3.0
 # define X_MAX 2
 # define X_MIN -2
-# define Y_MAX 2
-# define Y_MIN -2
 
 # define WIDTH 500
 # define HEIGHT 500
@@ -34,6 +36,7 @@
 
 # if __APPLE__
 #  define ESC 65307
+#  define RESET 114
 # else
 #  define ESC 0xff1b
 # endif
@@ -51,7 +54,6 @@ typedef struct s_img
 	int			endian;
 }				t_img;
 
-
 typedef struct s_fractal
 {
 	double	x_max;
@@ -59,32 +61,36 @@ typedef struct s_fractal
 	double	y_max;
 	double	y_min;
 	double	zoom;
+	double		loop;
 }				t_fractal;
 
 typedef struct s_mlx
 {
-	void	*mlx;
-	void	*window;
-	t_img	image;
-	t_fractal *fractal;
+	void		*mlx;
+	void		*window;
+	t_img		image;
+	t_fractal	*fractal;
 }				t_mlx;
+
+void	init_t_fractal(t_fractal *fractal);
 /*
 ** puts
 */
-int		put_mandelbrot(t_mlx *mlx, t_fractal *frac);
+int		put_mandelbrot(t_mlx *mlx);
 
-int		zoom(int button, int x, int y, t_mlx *mlx);
+void	set_zoom(t_fractal *fractal, int x_fix, int y_fix);
 
 int		mandelbrot_set(double x, double y, t_fractal *frac);
 /*
 ** color
 */
-int		set_gradation_color(int H);
+int		set_gradation_color(double H);
 
 /*
 ** hooks
 */
 int		key_hook(int key, t_mlx *mlx);
+int		mouse_hook(int button, int x, int y, t_mlx *mlx);
 
 /*
 ** exit.c

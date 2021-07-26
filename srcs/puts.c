@@ -36,7 +36,7 @@ void	put_julia(t_mlx *mlx)
 	mlx->image = img;
 }
 
-int	put_mandelbrot(t_mlx *mlx, t_fractal *frac)
+int	put_mandelbrot(t_mlx *mlx)
 {
 	int		x;
 	int		y;
@@ -50,11 +50,11 @@ int	put_mandelbrot(t_mlx *mlx, t_fractal *frac)
 		x = 0;
 		while (x < HEIGHT)
 		{
-			n = mandelbrot_set(x, y, frac);
+			n = mandelbrot_set(x, y, mlx->fractal);
 			if (!n)
 				mlx_pixel_put_to_img(&img, x, y, 0);
 			else
-				mlx_pixel_put_to_img(&img, x, y, set_gradation_color(360 / LOOP * n));
+				mlx_pixel_put_to_img(&img, x, y, set_gradation_color((double)360 / mlx->fractal->loop * n));
 			x++;
 		}
 		y++;

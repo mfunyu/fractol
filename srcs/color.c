@@ -11,26 +11,26 @@ int	calc_rgb(int *color_vec)
 	return (color);
 }
 
-int	*convert_to_rgb(int val, int set_max, int set_min, int change)
+int	*convert_to_rgb(double val, int set_max, int set_min, int change)
 {
 	int		*color;
 	double	S;
 	double	V;
-	int		max;
-	int		min;
+	double	max;
+	double	min;
 
 	color = (int *)malloc(sizeof(int) * 4);
 	S = 200;
 	V = 255;
 	max = V;
 	min = max - ((S / 255) * max);
-	color[set_max] = max;
-	color[set_min] = min;
-	color[change] = val / 60 * (max - min) + min;
+	color[set_max] = (int)max;
+	color[set_min] = (int)min;
+	color[change] = (int)(val / 60.0 * (max - min) + min);
 	return (color);
 }
 
-int	set_gradation_color(int H)
+int	set_gradation_color(double H)
 {
 	int		*color;
 
