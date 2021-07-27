@@ -15,6 +15,15 @@ void	init_t_img(t_img *img, t_mlx *mlx)
 			&img->endian);
 }
 
+int	is_in_set(double x, double y, t_fractal *fractal)
+{
+	if (fractal->type == Julia)
+		return (julia_set(x, y, fractal));
+	if (fractal->type == Mandelbrot)
+		return (mandelbrot_set(x, y, fractal));
+	return (0);
+}
+
 int	put_fractal(t_mlx *mlx)
 {
 	int		x;
@@ -29,7 +38,7 @@ int	put_fractal(t_mlx *mlx)
 		x = 0;
 		while (x < HEIGHT)
 		{
-			n = mandelbrot_set(x, y, mlx->fractal);
+			n = is_in_set(x, y, mlx->fractal);
 			if (!n)
 				mlx_pixel_put_to_img(&img, x, y, 0);
 			else

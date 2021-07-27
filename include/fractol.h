@@ -18,28 +18,21 @@
 # define DIVERGE 9.0
 # define MIN -2.0
 # define SIZE 4.0
+# define C_REAL -0.3
+# define C_IMAG -0.63
 
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 800
+# define HEIGHT 800
 
 # define UP 4
 # define DOWN 5
-
-# define FOCUS_IN 9
-# define BUTTON_PRESS 4
-# define MOTION_NOTIFY 6
-# define DESTROY_NOTIFY 17
-
-# define FOCUS_CHANGE_MASK 1L << 21
-# define BUTTON_PRESS_MASK 1L << 4
-# define STRUCTURE_NOTIFY_MASK 1L << 17
 
 # if __APPLE__
 #  define ESC 65307
 #  define RESET 114
 #  define INC 65362
 #  define DEC 65364
-#  define RANGE 114
+#  define RANGE 119
 # else
 #  define ESC 0xff1b
 # endif
@@ -58,12 +51,21 @@ typedef struct s_img
 	int			endian;
 }				t_img;
 
+typedef enum e_type
+{
+	Julia,
+	Mandelbrot
+}			t_type;
+
 typedef struct s_fractal
 {
+	t_type	type;
 	double	x_min;
 	double	y_min;
 	double	x_size;
 	double	y_size;
+	double	c_real;
+	double	c_imag;
 	int		loop;
 }				t_fractal;
 
@@ -75,7 +77,8 @@ typedef struct s_mlx
 	t_fractal	*fractal;
 }				t_mlx;
 
-void	init_t_fractal(t_fractal *fractal);
+void	init_t_fractal(t_fractal *fractal, t_type type);
+
 /*
 ** puts
 */
@@ -84,6 +87,7 @@ int		put_fractal(t_mlx *mlx);
 void	set_zoom(t_fractal *fractal, int x_fix, int y_fix, int zoom_dir);
 
 int		mandelbrot_set(double x, double y, t_fractal *frac);
+int		julia_set(double x, double y, t_fractal *frac);
 /*
 ** color
 */
@@ -93,6 +97,7 @@ int		set_gradation_color(double H);
 ** hooks
 */
 int		key_hook(int key, t_mlx *mlx);
+int		key_press(int key, t_mlx *mlx);
 int		mouse_hook(int button, int x, int y, t_mlx *mlx);
 
 /*

@@ -1,5 +1,16 @@
 #include "fractol.h"
 
+bool	skip(t_fractal *fractal)
+{
+	static int	skip;
+
+	if (skip++ >= INT_MAX - 1)
+		skip = 0;
+	if (fractal->loop > 100 && skip % (fractal->loop / IGNORE_FREQ))
+		return (true);
+	return (false);
+}
+
 int	key_hook(int key, t_mlx *mlx)
 {
 	t_fractal	*fr;
@@ -17,7 +28,7 @@ int	key_hook(int key, t_mlx *mlx)
 	else
 	{
 		if (key == RESET)
-			init_t_fractal(fr);
+			init_t_fractal(fr, fr->type);
 		if (key == INC)
 			fr->loop += 4;
 		if (key == DEC)
@@ -27,13 +38,36 @@ int	key_hook(int key, t_mlx *mlx)
 	return (0);
 }
 
+int	key_press(int key, t_mlx *mlx)
+{
+	t_fractal	*fr;
+
+	fr = mlx->fractal;
+	if (skip(mlx->fractal))
+		return (0);
+	if (key == INC || key == DEC)
+	{
+		if (key == INC)
+		{
+			fr->loop += 4;
+			ft_putendl_fd("zooming in ...", STDOUT_FILENO);
+		}
+		else
+		{
+			if (fr->loop == 10)
+				return (0);
+			fr->loop = max(10, fr->loop - 4);
+			ft_putendl_fd("zooming out ...", STDOUT_FILENO);
+		}
+		put_fractal(mlx);
+		ft_putendl_fd(CLEAR_SCREEN, STDOUT_FILENO);
+	}
+	return (0);
+}
+
 int	mouse_hook(int button, int x, int y, t_mlx *mlx)
 {
-	static int	skip;
-
-	if (skip++ >= INT_MAX - 1)
-		skip = 0;
-	if (mlx->fractal->loop > 100 && skip % (mlx->fractal->loop / IGNORE_FREQ))
+	if (skip(mlx->fractal))
 		return (0);
 	if (button == UP || button == DOWN)
 	{
