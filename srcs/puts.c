@@ -15,28 +15,7 @@ void	init_t_img(t_img *img, t_mlx *mlx)
 			&img->endian);
 }
 
-void	put_julia(t_mlx *mlx)
-{
-	int		x;
-	int		y;
-	t_img	img;
-
-	init_t_img(&img, mlx);
-	y = 0;
-	while (y < WIDTH)
-	{
-		x = 0;
-		while (x < HEIGHT)
-		{
-			mlx_pixel_put_to_img(&img, x, y, 200);
-			x++;
-		}
-		y++;
-	}
-	mlx->image = img;
-}
-
-int	put_mandelbrot(t_mlx *mlx)
+int	put_fractal(t_mlx *mlx)
 {
 	int		x;
 	int		y;
@@ -54,7 +33,8 @@ int	put_mandelbrot(t_mlx *mlx)
 			if (!n)
 				mlx_pixel_put_to_img(&img, x, y, 0);
 			else
-				mlx_pixel_put_to_img(&img, x, y, set_gradation_color((double)360 / mlx->fractal->loop * n));
+				mlx_pixel_put_to_img(&img, x, y,
+					set_gradation_color(360.0 / mlx->fractal->loop * n));
 			x++;
 		}
 		y++;

@@ -18,12 +18,12 @@ void	init_t_mlx(t_mlx *mlx, char *name, t_fractal *fractal)
 
 void	init_t_fractal(t_fractal *fractal)
 {
-	fractal->x_min = X_MIN;
-	fractal->x_max = X_MAX;
-	fractal->y_min = X_MIN;
-	fractal->y_max = X_MIN + (double)(X_MAX - X_MIN) / WIDTH * HEIGHT;
-	fractal->zoom = 0;
-	fractal->loop = LOOP;
+	fractal->x_min = MIN;
+	fractal->y_min = MIN;
+	fractal->x_size = SIZE;
+	fractal->y_size = (double)SIZE / WIDTH * HEIGHT;
+	fractal->loop = max(10,
+			50.0 * pow(log(WIDTH / fractal->x_size), 1.25));
 }
 
 void	start_mlx_loop(t_mlx *mlx)
@@ -44,7 +44,7 @@ int	main(int ac, char **av)
 		exit_print_instruction(av[1]);
 	init_t_fractal(&frac);
 	init_t_mlx(&mlx, av[1], &frac);
-	put_mandelbrot(&mlx);
+	put_fractal(&mlx);
 	start_mlx_loop(&mlx);
 	return (0);
 }

@@ -7,18 +7,19 @@ int	mandelbrot_set(double x, double y, t_fractal *frac)
 	double	save_x;
 	int		n;
 
-	x = x / (WIDTH / (frac->x_max - frac->x_min)) + frac->x_min;
-	y = y / (HEIGHT / (frac->y_max - frac->y_min)) + frac->y_min;
+	x = frac->x_min + x / WIDTH * frac->x_size;
+	y = frac->y_min + y / HEIGHT * frac->y_size;
 	zx = 0;
 	zy = 0;
-	n = -1;
-	while (++n < frac->loop)
+	n = 0;
+	while (n < frac->loop)
 	{
-		if (sqrt(zx * zx + zy * zy) > DIVERGE)
+		if (zx * zx + zy * zy < -DIVERGE || zx * zx + zy * zy > DIVERGE)
 			return (n);
 		save_x = zx;
 		zx = zx * zx - zy * zy + x;
 		zy = 2 * save_x * zy + y;
+		n++;
 	}
 	return (0);
 }
