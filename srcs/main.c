@@ -43,6 +43,7 @@ void	init_t_fractal(t_fractal *fractal, t_type type, t_mlx *mlx)
 	fractal->size = SIZE;
 	fractal->c_real = C_REAL;
 	fractal->c_imag = C_IMAG;
+	fractal->color = 1;
 	fractal->loop = max(10,
 			50.0 * pow(log(fractal->screen / fractal->size), 1.25));
 	mlx->fractal = fractal;

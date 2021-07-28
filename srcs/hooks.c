@@ -27,6 +27,8 @@ int	key_hook(int key, t_mlx *mlx)
 			fr->y_min, fr->y_min + fr->size);
 	else
 	{
+		if (key == COLOR)
+			fr->color *= -1;
 		if (key == RESET)
 			init_t_fractal(fr, fr->type, mlx);
 		if (key == INC)
