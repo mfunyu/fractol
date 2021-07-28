@@ -10,7 +10,7 @@ void	mlx_pixel_put_to_img(t_img *img, int x, int y, int color)
 
 void	init_t_img(t_img *img, t_mlx *mlx)
 {
-	img->image = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	img->image = mlx_new_image(mlx->mlx, mlx->screen, mlx->screen);
 	img->addr = mlx_get_data_addr(img->image, &img->bpp, &img->line_len,
 			&img->endian);
 }
@@ -33,10 +33,10 @@ int	put_fractal(t_mlx *mlx)
 
 	init_t_img(&img, mlx);
 	y = 0;
-	while (y < WIDTH)
+	while (y < mlx->screen)
 	{
 		x = 0;
-		while (x < HEIGHT)
+		while (x < mlx->screen)
 		{
 			n = is_in_set(x, y, mlx->fractal);
 			if (!n)

@@ -7,8 +7,8 @@ int	mandelbrot_set(double x, double y, t_fractal *frac)
 	double	save_x;
 	int		n;
 
-	x = frac->x_min + x / WIDTH * frac->x_size;
-	y = frac->y_min + y / HEIGHT * frac->y_size;
+	x = frac->x_min + x / frac->screen * frac->size;
+	y = frac->y_min + y / frac->screen * frac->size;
 	zx = 0;
 	zy = 0;
 	n = 0;

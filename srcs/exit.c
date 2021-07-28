@@ -18,6 +18,12 @@ int	free_exit(t_mlx *mlx)
 	exit(EXIT_SUCCESS);
 }
 
+int	error_exit(char *str)
+{
+	perror(str);
+	exit(EXIT_FAILURE);
+}
+
 void	null_free(void **val)
 {
 	free(*val);

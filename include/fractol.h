@@ -14,15 +14,13 @@
 /*
 ** default settings
 */
+# define SCREEN 800
 # define LOOP 100
 # define DIVERGE 9.0
 # define MIN -2.0
 # define SIZE 4.0
 # define C_REAL -0.3
 # define C_IMAG -0.63
-
-# define WIDTH 800
-# define HEIGHT 800
 
 # define UP 4
 # define DOWN 5
@@ -62,10 +60,10 @@ typedef struct s_fractal
 	t_type	type;
 	double	x_min;
 	double	y_min;
-	double	x_size;
-	double	y_size;
+	double	size;
 	double	c_real;
 	double	c_imag;
+	int		screen;
 	int		loop;
 }				t_fractal;
 
@@ -75,10 +73,10 @@ typedef struct s_mlx
 	void		*window;
 	t_img		image;
 	t_fractal	*fractal;
+	int			screen;
 }				t_mlx;
 
-void	init_t_fractal(t_fractal *fractal, t_type type);
-
+void	init_t_fractal(t_fractal *fractal, t_type type, t_mlx *mlx);
 /*
 ** puts
 */
@@ -105,6 +103,7 @@ int		mouse_hook(int button, int x, int y, t_mlx *mlx);
 */
 void	exit_print_instruction(char *param);
 int		free_exit(t_mlx *mlx);
+int		error_exit(char *str);
 void	null_free(void **val);
 
 /*

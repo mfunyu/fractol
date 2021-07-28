@@ -23,12 +23,12 @@ int	key_hook(int key, t_mlx *mlx)
 		free_exit(mlx);
 	}
 	if (key == RANGE)
-		printf("x: [%f, %f], y: [%f, %f]\n", fr->x_min,
-			fr->x_min + fr->x_size, fr->y_min, fr->y_min + fr->y_size);
+		printf("x: [%f, %f], y: [%f, %f]\n", fr->x_min, fr->x_min + fr->size,
+			fr->y_min, fr->y_min + fr->size);
 	else
 	{
 		if (key == RESET)
-			init_t_fractal(fr, fr->type);
+			init_t_fractal(fr, fr->type, mlx);
 		if (key == INC)
 			fr->loop += 4;
 		if (key == DEC)
@@ -82,7 +82,7 @@ int	mouse_hook(int button, int x, int y, t_mlx *mlx)
 			ft_putendl_fd("zooming out ...", STDOUT_FILENO);
 		}
 		mlx->fractal->loop = max(10,
-				50.0 * pow(log(WIDTH / mlx->fractal->x_size), 1.25));
+				50.0 * pow(log(mlx->screen / mlx->fractal->size), 1.25));
 		DI(mlx->fractal->loop);
 	}
 	put_fractal(mlx);

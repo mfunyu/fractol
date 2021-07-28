@@ -7,8 +7,8 @@ int	julia_set(double x, double y, t_fractal *frac)
 	double	save_x;
 	int		n;
 
-	zx = frac->x_min + x / WIDTH * frac->x_size;
-	zy = frac->y_min + y / HEIGHT * frac->y_size;
+	zx = frac->x_min + x / frac->screen * frac->size;
+	zy = frac->y_min + y / frac->screen * frac->size;
 	n = 0;
 	while (n < frac->loop)
 	{
