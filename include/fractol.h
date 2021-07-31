@@ -14,7 +14,7 @@
 /*
 ** default settings
 */
-# define SCREEN 800
+# define SCREEN 600
 # define LOOP 100
 # define LOOP_MIN 15
 # define DIVERGE 9.0
@@ -26,12 +26,20 @@
 # define UP 4
 # define DOWN 5
 
+# define INSTRUCTIONS "usage: ./fractol fractal-name [-s size] [-r type]\n\n \
+  available fractals: \n \
+    Julia\n \
+    Mandelbrot\n\n \
+  basic user options, with defaults in [ ]:\n \
+    -s --screen-size=<size> size > 0 [600]\n \
+    -r --resolution=high|mid|low [mid]\n"
+
 # if __APPLE__
 #  define ESC 65307
 #  define RESET 114
 #  define INC 65362
 #  define DEC 65364
-#  define RANGE 119
+#  define INFO 105
 #  define COLOR 99
 # else
 #  define ESC 0xff1b
@@ -58,6 +66,14 @@ typedef enum e_type
 	Mandelbrot
 }			t_type;
 
+typedef enum e_color
+{
+	Gradation,
+	Reverse,
+	Blue,
+	Num_colors
+}			t_color;
+
 typedef struct s_fractal
 {
 	t_type	type;
@@ -81,16 +97,23 @@ typedef struct s_mlx
 	int			screen;
 }				t_mlx;
 
-void	init_t_fractal(t_fractal *fractal, t_type type, t_mlx *mlx, int resol);
+void	init_t_fractal(t_fractal *fractal, t_mlx *mlx);
 
 int		put_fractal(t_mlx *mlx);
 
 int		calc_loop(t_fractal *fractal);
 void	set_zoom(t_fractal *fractal, int x_fix, int y_fix, int zoom_dir);
 
-int		set_resolution(int ac, char **av);
+/*
+** params
+*/
+void	check_params(int ac, char **av);
+t_type	set_fractal_type(char *param);
+int		set_screen_size(t_mlx *mlx, char *param);
+int		set_resolution(char *param);
 
-int		set_gradation_color(double H);
+int		set_color(t_fractal *fractal, int n);
+char	*t_color_to_char(t_color color);
 
 /*
 ** fractal
@@ -108,7 +131,7 @@ int		mouse_hook(int button, int x, int y, t_mlx *mlx);
 /*
 ** exit
 */
-void	exit_print_instruction(char *param);
+void	exit_print_instruction(char *param, char *option);
 int		free_exit(t_mlx *mlx);
 int		error_exit(char *str);
 void	null_free(void **val);

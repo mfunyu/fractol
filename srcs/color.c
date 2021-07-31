@@ -48,3 +48,25 @@ int	set_gradation_color(double H)
 		color = convert_to_rgb(360 - H, R, G, B);
 	return (calc_rgb(color));
 }
+
+char	*t_color_to_char(t_color color)
+{
+	if (color == Gradation)
+		return ("gradation");
+	else if (color == Reverse)
+		return ("reverse");
+	return (NULL);
+}
+
+int	set_color(t_fractal *fractal, int n)
+{
+	if (fractal->color == Gradation)
+		return (set_gradation_color(n * 360.0 / fractal->loop));
+	else if (fractal->color == Reverse)
+		return (set_gradation_color((fractal->loop - n)
+				* 360.0 / fractal->loop));
+	else if (fractal->color == Blue)
+		return (set_gradation_color((n / 2 + fractal->loop / 2)
+				* 360.0 / fractal->loop));
+	return (0);
+}

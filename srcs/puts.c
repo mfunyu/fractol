@@ -24,18 +24,6 @@ int	is_in_set(double x, double y, t_fractal *fractal)
 	return (0);
 }
 
-int	put_color(t_fractal *fractal, int n)
-{
-	if (fractal->color == 1)
-		return (set_gradation_color(n * 360.0 / fractal->loop));
-	else if (fractal->color == 0)
-		return (set_gradation_color((fractal->loop - n)
-				* 360.0 / fractal->loop));
-	else if (fractal->color == -1)
-		return (set_gradation_color((n / 2 + fractal->loop / 2) * 360.0 / fractal->loop));
-	return (0);
-}
-
 int	put_fractal(t_mlx *mlx)
 {
 	int		x;
@@ -54,7 +42,7 @@ int	put_fractal(t_mlx *mlx)
 			if (!n)
 				mlx_pixel_put_to_img(&img, x, y, 0);
 			else
-				mlx_pixel_put_to_img(&img, x, y, put_color(mlx->fractal, n));
+				mlx_pixel_put_to_img(&img, x, y, set_color(mlx->fractal, n));
 			x++;
 		}
 		y++;

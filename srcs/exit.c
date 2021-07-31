@@ -1,14 +1,12 @@
 #include "fractol.h"
 
-void	exit_print_instruction(char *param)
+void	exit_print_instruction(char *param, char *option)
 {
 	if (param)
-		printf("fractol: invalid type -- %s\n", param);
-	else
-		printf("usage: ./fractol `fractal name`\n");
-	printf("available fractals: \n");
-	printf("Julia\n");
-	printf("Mandelbrot\n");
+		printf("fractol: invalid type --  %s\n", param);
+	if (option)
+		printf("fractol: illegal option: %s\n", option);
+	printf(INSTRUCTIONS);
 	exit(EXIT_SUCCESS);
 }
 
