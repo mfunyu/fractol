@@ -16,6 +16,7 @@
 */
 # define SCREEN 800
 # define LOOP 100
+# define LOOP_MIN 15
 # define DIVERGE 9.0
 # define MIN -2.0
 # define SIZE 4.0
@@ -52,6 +53,7 @@ typedef struct s_img
 
 typedef enum e_type
 {
+	Invalid,
 	Julia,
 	Mandelbrot
 }			t_type;
@@ -65,6 +67,7 @@ typedef struct s_fractal
 	double	c_real;
 	double	c_imag;
 	int		screen;
+	int		resolution;
 	int		color;
 	int		loop;
 }				t_fractal;
@@ -78,11 +81,14 @@ typedef struct s_mlx
 	int			screen;
 }				t_mlx;
 
-void	init_t_fractal(t_fractal *fractal, t_type type, t_mlx *mlx);
+void	init_t_fractal(t_fractal *fractal, t_type type, t_mlx *mlx, int resol);
 
 int		put_fractal(t_mlx *mlx);
 
+int		calc_loop(t_fractal *fractal);
 void	set_zoom(t_fractal *fractal, int x_fix, int y_fix, int zoom_dir);
+
+int		set_resolution(int ac, char **av);
 
 int		set_gradation_color(double H);
 

@@ -6,7 +6,7 @@ t_type	fractal_type(char *param)
 		return (Julia);
 	if (ft_strncmp("Mandelbrot", param, 11) == 0)
 		return (Mandelbrot);
-	return (-1);
+	return (Invalid);
 }
 
 void	init_t_mlx(t_mlx *mlx, char **av)
@@ -34,7 +34,7 @@ void	init_t_mlx(t_mlx *mlx, char **av)
 	DI(mlx->screen);
 }
 
-void	init_t_fractal(t_fractal *fractal, t_type type, t_mlx *mlx)
+void	init_t_fractal(t_fractal *fractal, t_type type, t_mlx *mlx, int resol)
 {
 	fractal->screen = mlx->screen;
 	fractal->type = type;
@@ -44,8 +44,9 @@ void	init_t_fractal(t_fractal *fractal, t_type type, t_mlx *mlx)
 	fractal->c_real = C_REAL;
 	fractal->c_imag = C_IMAG;
 	fractal->color = 1;
-	fractal->loop = max(10,
-			50.0 * pow(log(fractal->screen / fractal->size), 1.25));
+	fractal->resolution = resol;
+	fractal->loop = calc_loop(fractal);
+	DI(fractal->loop);
 	mlx->fractal = fractal;
 }
 
@@ -67,10 +68,10 @@ int	main(int ac, char **av)
 	if (ac <= 1)
 		exit_print_instruction(av[1]);
 	type = fractal_type(av[1]);
-	if (type < 0)
+	if (type == Invalid)
 		exit_print_instruction(av[1]);
 	init_t_mlx(&mlx, av);
-	init_t_fractal(&frac, type, &mlx);
+	init_t_fractal(&frac, type, &mlx, set_resolution(ac, av));
 	put_fractal(&mlx);
 	start_mlx_loop(&mlx);
 	return (0);

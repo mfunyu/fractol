@@ -1,5 +1,11 @@
 #include "fractol.h"
 
+int	calc_loop(t_fractal *fractal)
+{
+	return (max(LOOP_MIN, 50.0 * pow(log10(fractal->screen
+					/ fractal->size / fractal->resolution), 1.25)));
+}
+
 double	set_new_size(t_fractal *fractal, double old_px_size)
 {
 	double	size_diff;
