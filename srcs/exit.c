@@ -10,9 +10,8 @@ void	exit_print_instruction(char *param, char *option)
 	exit(EXIT_SUCCESS);
 }
 
-int	free_exit(t_mlx *mlx)
+int	just_exit(void)
 {
-	mlx_destroy_image(mlx->mlx, mlx->image.image);
 	exit(EXIT_SUCCESS);
 }
 

@@ -49,5 +49,6 @@ int	put_fractal(t_mlx *mlx)
 	}
 	mlx->image = img;
 	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image.image, 0, 0);
+	mlx_destroy_image(mlx->mlx, mlx->image.image);
 	return (0);
 }

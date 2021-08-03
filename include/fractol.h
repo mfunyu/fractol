@@ -132,7 +132,7 @@ int		mouse_hook(int button, int x, int y, t_mlx *mlx);
 ** exit
 */
 void	exit_print_instruction(char *param, char *option);
-int		free_exit(t_mlx *mlx);
+int		just_exit(void);
 int		error_exit(char *str);
 void	null_free(void **val);
 

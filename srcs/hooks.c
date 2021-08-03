@@ -19,7 +19,7 @@ int	key_hook(int key, t_mlx *mlx)
 	if (key == ESC)
 	{
 		mlx_destroy_window(mlx->mlx, mlx->window);
-		free_exit(mlx);
+		exit(EXIT_SUCCESS);
 	}
 	if (key == INFO)
 	{

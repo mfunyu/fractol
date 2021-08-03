@@ -1,5 +1,13 @@
 #include "fractol.h"
 
+void	end(void)__attribute__((destructor));
+
+
+void	end(void)
+{
+	system("leaks fractol");
+}
+
 void	init_t_mlx(t_mlx *mlx, char **av)
 {
 	mlx->mlx = mlx_init();
@@ -28,7 +36,7 @@ void	start_mlx_loop(t_mlx *mlx)
 {
 	mlx_key_hook(mlx->window, key_hook, mlx);
 	mlx_mouse_hook(mlx->window, mouse_hook, mlx);
-	mlx_hook(mlx->window, DestroyNotify, StructureNotifyMask, free_exit, mlx);
+	mlx_hook(mlx->window, DestroyNotify, StructureNotifyMask, just_exit, NULL);
 	mlx_hook(mlx->window, KeyPress, KeyPressMask, key_press, mlx);
 	mlx_loop(mlx->mlx);
 }
