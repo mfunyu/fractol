@@ -55,6 +55,10 @@ char	*t_color_to_char(t_color color)
 		return ("gradation");
 	else if (color == Reverse)
 		return ("reverse");
+	else if (color == Blue)
+		return ("blue");
+	else if (color == Monochrome)
+		return ("monochrome");
 	return (NULL);
 }
 
@@ -68,5 +72,7 @@ int	set_color(t_fractal *fractal, int n)
 	else if (fractal->color == Blue)
 		return (set_gradation_color((n / 2 + fractal->loop / 2)
 				* 360.0 / fractal->loop));
+	else if (fractal->color == Monochrome)
+		return (n % 2 * (int)(0xFFFFFFFF));
 	return (0);
 }

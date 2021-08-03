@@ -11,8 +11,8 @@ int	mandelbrot_set(double x, double y, t_fractal *frac)
 	y = frac->y_min + y / frac->screen * frac->size;
 	zx = 0;
 	zy = 0;
-	n = 0;
-	while (n < frac->loop)
+	n = 1;
+	while (n <= frac->loop)
 	{
 		if (zx * zx + zy * zy < -DIVERGE || zx * zx + zy * zy > DIVERGE)
 			return (n);

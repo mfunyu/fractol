@@ -4,7 +4,6 @@
 # include <stdio.h>
 # include "libft.h"
 # include "mlx.h"
-# include "debug.h"
 # include "math.h"
 # include "X11/Xlib.h"
 
@@ -71,6 +70,7 @@ typedef enum e_color
 	Gradation,
 	Reverse,
 	Blue,
+	Monochrome,
 	Num_colors
 }			t_color;
 

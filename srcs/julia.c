@@ -9,8 +9,8 @@ int	julia_set(double x, double y, t_fractal *frac)
 
 	zx = frac->x_min + x / frac->screen * frac->size;
 	zy = frac->y_min + y / frac->screen * frac->size;
-	n = 0;
-	while (n < frac->loop)
+	n = 1;
+	while (n <= frac->loop)
 	{
 		if (zx * zx + zy * zy < -DIVERGE || zx * zx + zy * zy > DIVERGE)
 			return (n);

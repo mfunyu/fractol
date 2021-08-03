@@ -7,7 +7,6 @@ void	init_t_mlx(t_mlx *mlx, char **av)
 	mlx->window = mlx_new_window(mlx->mlx, mlx->screen, mlx->screen, av[1]);
 	if (!mlx->window)
 		error_exit("mlx window");
-	DI(mlx->screen);
 }
 
 void	init_t_fractal(t_fractal *fractal, t_mlx *mlx)
@@ -22,7 +21,6 @@ void	init_t_fractal(t_fractal *fractal, t_mlx *mlx)
 	fractal->color = 0;
 	fractal->resolution = set_resolution(NULL);
 	fractal->loop = calc_loop(fractal);
-	DI(fractal->loop);
 	mlx->fractal = fractal;
 }
 
