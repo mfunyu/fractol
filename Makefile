@@ -12,7 +12,7 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror $(INCLUDES)
 
 LIBS	= -L$(LIBFT) -lft \
-			-L$(LIBMLX) -lmlx_Darwin \
+			-L$(LIBMLX) -lmlx_$(shell uname) \
 			-L$(LIBX_INC)/../lib -lXext -lX11
 
 .PHONY	: all clean fclean re do_configure
