@@ -33,12 +33,12 @@
     -s --screen-size=<size> size > 0 [600]\n \
     -r --resolution=high|mid|low [mid]\n"
 
-#  define ESC 65307
-#  define RESET 114
-#  define INC 65362
-#  define DEC 65364
-#  define INFO 105
-#  define COLOR 99
+# define ESC 65307
+# define RESET 114
+# define INC 65362
+# define DEC 65364
+# define INFO 105
+# define COLOR 99
 
 # define CLEAR_SCREEN "\033[1J"
 # define R 0

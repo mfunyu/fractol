@@ -1,13 +1,5 @@
 #include "fractol.h"
 
-void	end(void)__attribute__((destructor));
-
-
-void	end(void)
-{
-	system("leaks fractol");
-}
-
 void	init_t_mlx(t_mlx *mlx, char **av)
 {
 	mlx->mlx = mlx_init();
