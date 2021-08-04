@@ -33,16 +33,12 @@
     -s --screen-size=<size> size > 0 [600]\n \
     -r --resolution=high|mid|low [mid]\n"
 
-# if __APPLE__
 #  define ESC 65307
 #  define RESET 114
 #  define INC 65362
 #  define DEC 65364
 #  define INFO 105
 #  define COLOR 99
-# else
-#  define ESC 0xff1b
-# endif
 
 # define CLEAR_SCREEN "\033[1J"
 # define R 0
