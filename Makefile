@@ -6,29 +6,39 @@
 #    By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/05 21:20:46 by mfunyu            #+#    #+#              #
-#    Updated: 2021/08/05 21:20:46 by mfunyu           ###   ########.fr        #
+#    Updated: 2021/08/05 21:42:54 by mfunyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= fractol
-SRCS	= $(wildcard ./srcs/*.c)
-OBJS	= $(SRCS:.c=.o)
-DEPS	= $(SRCS:.c=.d)
+NAME	:= fractol
+SRCS	:= color.c \
+		exit.c \
+		hooks.c \
+		julia.c \
+		main.c \
+		mandelbrot.c \
+		params.c \
+		puts.c \
+		utils.c \
+		zoom.c
+SRCS	:= $(addprefix srcs/,$(SRCS))
+OBJS	:= $(SRCS:.c=.o)
+#DEPS	:= $(SRCS:.c=.d)
 
-LIBFT	= libft
-LIBMLX	= minilibx-linux
-LIBX_INC= $(shell ./configure)
-INCLUDES= -Iinclude -I$(LIBFT) -I$(LIBMLX) -I$(LIBX_INC)
+LIBFT	:= libft
+LIBMLX	:= minilibx-linux
+LIBX_INC:= $(shell ./configure)
+INCLUDES:= -Iinclude -I$(LIBFT) -I$(LIBMLX) -I$(LIBX_INC)
 
-CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror $(INCLUDES)
+CC		:= gcc
+CFLAGS	:= -Wall -Wextra -Werror $(INCLUDES)
 
-LIBS	= -L$(LIBFT) -lft \
+LIBS	:= -L$(LIBFT) -lft \
 			-L$(LIBMLX) -lmlx_$(shell uname) \
 			-L$(LIBX_INC)/../lib -lXext -lX11 \
 			-lm
 
-.PHONY	: all clean fclean re do_configure
+.PHONY	: all clean fclean re
 
 #-----------------------------------
 
@@ -59,6 +69,6 @@ endif
 
 fclean	: clean
 	make fclean -C $(LIBFT)
-	$(RM) $(NAME) libmlx.a libmlx_Darwin.a
+	$(RM) $(NAME)
 
 re		: fclean all

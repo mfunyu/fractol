@@ -6,13 +6,13 @@
 #    By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/23 15:26:26 by mfunyu            #+#    #+#              #
-#    Updated: 2021/05/18 22:52:29 by mfunyu           ###   ########.fr        #
+#    Updated: 2021/08/05 21:37:16 by mfunyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= libft.a
 SRCS	:= ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
-			ft_memchr.c ft_memcmp.c ft_strlen.c ft_strlcpy.c ft_putnbr_fd.c\
+			ft_memchr.c ft_memcmp.c ft_strlen.c ft_strlcpy.c ft_putnbr_fd.c \
 			ft_strlcat.c ft_strchr.c ft_strrchr.c ft_strnstr.c \
 			ft_strncmp.c ft_atoi.c ft_isalpha.c ft_isdigit.c ft_isalnum.c \
 			ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c ft_calloc.c \
@@ -31,7 +31,7 @@ SRCS	:= ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 			ft_atoi_check.c
 OBJS	:= $(SRCS:.c=.o)
 CC		:= gcc
-CFLAGS	:= -g -Wall -Wextra -Werror
+CFLAGS	:= -Wall -Wextra -Werror
 
 all		: $(NAME)
 
