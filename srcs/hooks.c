@@ -91,3 +91,9 @@ int	mouse_hook(int button, int x, int y, t_mlx *mlx)
 	ft_putendl_fd(CLEAR_SCREEN, STDOUT_FILENO);
 	return (0);
 }
+
+int	focus_change(t_mlx *mlx)
+{
+	put_fractal(mlx);
+	return (0);
+}

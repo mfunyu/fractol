@@ -29,6 +29,7 @@ void	start_mlx_loop(t_mlx *mlx)
 	mlx_key_hook(mlx->window, key_hook, mlx);
 	mlx_mouse_hook(mlx->window, mouse_hook, mlx);
 	mlx_hook(mlx->window, DestroyNotify, StructureNotifyMask, just_exit, NULL);
+	mlx_hook(mlx->window, FocusIn, FocusChangeMask, focus_change, mlx);
 	mlx_hook(mlx->window, KeyPress, KeyPressMask, key_press, mlx);
 	mlx_loop(mlx->mlx);
 }

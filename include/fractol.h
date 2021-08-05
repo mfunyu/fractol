@@ -98,6 +98,7 @@ void	init_t_fractal(t_fractal *fractal, t_mlx *mlx);
 int		put_fractal(t_mlx *mlx);
 
 int		calc_loop(t_fractal *fractal);
+
 void	set_zoom(t_fractal *fractal, int x_fix, int y_fix, int zoom_dir);
 
 /*
@@ -108,6 +109,9 @@ t_type	set_fractal_type(char *param);
 int		set_screen_size(t_mlx *mlx, char *param);
 int		set_resolution(char *param);
 
+/*
+** color
+*/
 int		set_color(t_fractal *fractal, int n);
 char	*t_color_to_char(t_color color);
 
@@ -123,6 +127,7 @@ int		julia_set(double x, double y, t_fractal *frac);
 int		key_hook(int key, t_mlx *mlx);
 int		key_press(int key, t_mlx *mlx);
 int		mouse_hook(int button, int x, int y, t_mlx *mlx);
+int		focus_change(t_mlx *mlx);
 
 /*
 ** exit
