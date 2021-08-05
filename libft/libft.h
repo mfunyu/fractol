@@ -6,7 +6,7 @@
 /*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:15:38 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/05/18 22:44:11 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/05 14:48:24 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void				*ft_memset(void *s, int c, unsigned int n);
 char				*ft_strdup(const char *s);
 void				*ft_calloc(unsigned int nmemb, unsigned int size);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
-size_t				ft_strlcat (char *dst, const char *src, size_t size);
+size_t				ft_strlcat(char *dst, const char *src, size_t size);
 void				*ft_memcpy(void *buf1, const void *buf2, size_t n);
 void				*ft_memmove(void *dest, const void *src, size_t n);
-void				*ft_memccpy (void *dst, const void *src, int c, size_t n);
+void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memchr(const void *buf, int ch, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				ft_bzero(void *s, unsigned int n);
