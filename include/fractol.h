@@ -30,8 +30,8 @@
     Julia\n \
     Mandelbrot\n\n \
   basic user options, with defaults in [ ]:\n \
-    -s --screen-size=<size> size > 0 [600]\n \
-    -r --resolution=high|mid|low [mid]\n"
+    -s (screen size) <size> size > 0 [600]\n \
+    -r (resolution) high|mid|low [mid]\n"
 
 # define ESC 65307
 # define RESET 114

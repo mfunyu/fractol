@@ -11,7 +11,7 @@ t_type	set_fractal_type(char *param)
 		type = Julia;
 	else if (ft_strncmp("Mandelbrot", param, 11) == 0)
 		type = Mandelbrot;
-	else if (type == Invalid)
+	else
 		exit_print_instruction(param, NULL);
 	return (type);
 }
@@ -23,7 +23,7 @@ int	set_resolution(char *param)
 
 	if (resolution)
 		return (resolution);
-	val = -1;
+	val = 1;
 	if (param)
 	{
 		if (ft_strncmp(param, "high", 5) == 0)
@@ -32,9 +32,9 @@ int	set_resolution(char *param)
 			val = 1;
 		else if (ft_strncmp(param, "low", 4) == 0)
 			val = 2;
+		else
+			exit_print_instruction(NULL, NULL);
 	}
-	if (val == -1)
-		exit_print_instruction(NULL, NULL);
 	resolution = pow(2, val) * 10;
 	return (resolution);
 }
@@ -77,15 +77,17 @@ void	check_params(int ac, char **av)
 	while (av[i])
 	{
 		if (ft_strncmp(av[i], "-s", 3) == 0)
-			set_screen_size(NULL, av[++i]);
-		else if (ft_strncmp(av[i], "--screen-size=", 14) == 0)
-			set_screen_size(NULL, av[i] + 14);
+		{
+			if (!av[++i])
+				exit_print_instruction(NULL, av[i]);
+			set_screen_size(NULL, av[i]);
+		}
 		else if (ft_strncmp(av[i], "-r", 3) == 0)
-			set_resolution(av[++i]);
-		else if (ft_strncmp(av[i], "--resolution=", 13) == 0)
-			set_resolution(av[i] + 13);
-		else
-			exit_print_instruction(NULL, av[i]);
+		{
+			if (!av[++i])
+				exit_print_instruction(NULL, av[i]);
+			set_resolution(av[i]);
+		}
 		i++;
 	}
 }
