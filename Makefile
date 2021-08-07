@@ -6,7 +6,7 @@
 #    By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/05 21:20:46 by mfunyu            #+#    #+#              #
-#    Updated: 2021/08/07 15:27:17 by mfunyu           ###   ########.fr        #
+#    Updated: 2021/08/07 16:05:09 by mfunyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,6 @@ SRCS	:= $(SRCFILES) main.c
 SRCS	:= $(addprefix srcs/,$(SRCS))
 OBJS	:= $(SRCS:.c=.o)
 
-SRCS_LEAK := $(SRCFILES) main_leak_check.c
-SRCS_LEAK := $(addprefix srcs/,$(SRCS_LEAK))
-OBJS_LEAK	:= $(SRCS_LEAK:.c=.o)
-
 #DEPS	:= $(SRCS:.c=.d)
 
 LIBFT	:= libft
@@ -42,6 +38,17 @@ LIBS	:= -L$(LIBFT) -lft \
 INCLUDES:= -Iinclude -I$(LIBFT) -I$(LIBMLX) -I$(LIBX_INC)
 CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror $(INCLUDES)
+
+# for leak check
+ifeq ($(shell uname), Darwin)
+	SRCS_LEAK := $(SRCFILES) main_leak_check.c
+	CFLAGS_LEAK:= $(CFLAGS)
+else if ($(shell uname), Linux)
+	SRCS_LEAK := $(SRCFILES) main.c
+	CFLAGS_LEAK:= $(CFLAGS) -g -fsanitize=address
+endif
+SRCS_LEAK := $(addprefix srcs/,$(SRCS_LEAK))
+OBJS_LEAK	:= $(SRCS_LEAK:.c=.o)
 
 
 .PHONY	: all clean fclean re
@@ -65,8 +72,10 @@ endif
 leak	: fclean $(LIBMLX) $(OBJS_LEAK)
 	make -C $(LIBFT)
 	make -C $(LIBMLX)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS_LEAK) $(LIBS)
+	$(CC) $(CFLAGS_LEAK) -o $(NAME) $(OBJS_LEAK) $(LIBS)
 
+$(OBJS_LEAK) : srcs/%.o : srcs/%.c
+	$(CC) $(CFLAGS_LEAK) -c -o $@ $<
 
 # compile .d files
 # %.o : %.c
