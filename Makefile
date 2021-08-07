@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/05 21:20:46 by mfunyu            #+#    #+#              #
-#    Updated: 2021/08/07 14:19:53 by user42           ###   ########.fr        #
+#    Updated: 2021/08/07 21:25:48 by mfunyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,10 @@ CFLAGS	:= -Wall -Wextra -Werror $(INCLUDES)
 # for leak check
 ifeq ($(shell uname), Darwin)
 	SRCS_LEAK := $(SRCFILES) main_leak_check.c
+	LEAK_FLAGS:= $(CFLAGS)
 else if ($(shell uname), Linux)
 	SRCS_LEAK := $(SRCFILES) main.c
+	LEAK_FLAGS:= $(CFLAGS) -g -fsanitize=address
 endif
 SRCS_LEAK := $(addprefix srcs/,$(SRCS_LEAK))
 OBJS_LEAK	:= $(SRCS_LEAK:.c=.o)
@@ -70,7 +72,7 @@ endif
 leak	: fclean $(LIBMLX) $(OBJS_LEAK)
 	make -C $(LIBFT)
 	make -C $(LIBMLX)
-	$(CC) $(CFLAGS) -g -fsanitize=address -o $(NAME) $(OBJS_LEAK) $(LIBS)
+	$(CC) $(LEAK_FLAGS) -o $(NAME) $(OBJS_LEAK) $(LIBS)
 
 # compile .d files
 # %.o : %.c
