@@ -6,13 +6,14 @@
 #    By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/05 21:20:46 by mfunyu            #+#    #+#              #
-#    Updated: 2021/08/07 21:25:48 by mfunyu           ###   ########.fr        #
+#    Updated: 2021/08/09 21:12:30 by mfunyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= fractol
 
-SRCFILES:= color.c \
+SRCS	:= main.c \
+		color.c \
 		exit.c \
 		hooks.c \
 		julia.c \
@@ -21,7 +22,6 @@ SRCFILES:= color.c \
 		puts.c \
 		utils.c \
 		zoom.c
-SRCS	:= $(SRCFILES) main.c
 SRCS	:= $(addprefix srcs/,$(SRCS))
 OBJS	:= $(SRCS:.c=.o)
 
@@ -38,18 +38,7 @@ LIBS	:= -L$(LIBFT) -lft \
 INCLUDES:= -Iinclude -I$(LIBFT) -I$(LIBMLX) -I$(LIBX_INC)
 CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror $(INCLUDES)
-
-# for leak check
-ifeq ($(shell uname), Darwin)
-	SRCS_LEAK := $(SRCFILES) main_leak_check.c
-	LEAK_FLAGS:= $(CFLAGS)
-else if ($(shell uname), Linux)
-	SRCS_LEAK := $(SRCFILES) main.c
-	LEAK_FLAGS:= $(CFLAGS) -g -fsanitize=address
-endif
-SRCS_LEAK := $(addprefix srcs/,$(SRCS_LEAK))
-OBJS_LEAK	:= $(SRCS_LEAK:.c=.o)
-
+DSTRCTR	:= ./tests/destructor.c
 
 .PHONY	: all clean fclean re
 
@@ -62,17 +51,24 @@ all		: $(NAME)
 $(NAME)	: $(LIBMLX) $(OBJS)
 	make -C $(LIBFT)
 	make -C $(LIBMLX)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS)
 
 $(LIBMLX):
-ifneq ($(shell echo ${LIBMLX}), $(shell ls | grep ${LIBMLX})))
+ifneq (${LIBMLX}, $(shell ls | grep ${LIBMLX})))
 	git clone https://github.com/42Paris/minilibx-linux.git
 endif
 
-leak	: fclean $(LIBMLX) $(OBJS_LEAK)
+Darwin_leak	: $(LIBMLX) $(OBJS)
 	make -C $(LIBFT)
 	make -C $(LIBMLX)
-	$(CC) $(LEAK_FLAGS) -o $(NAME) $(OBJS_LEAK) $(LIBS)
+	$(CC) $(CFLAGS) $(OBJS) $(DSTRCTR) -o $(NAME) $(LIBS)
+
+Linux_leak	: $(LIBMLX) $(OBJS)
+	make -C $(LIBFT)
+	make -C $(LIBMLX)
+	$(CC) $(CFLAGS) -fsanitize=address $(OBJS) -o $(NAME) $(LIBS)
+
+leak	: $(shell uname)_leak
 
 # compile .d files
 # %.o : %.c
@@ -80,10 +76,8 @@ leak	: fclean $(LIBMLX) $(OBJS_LEAK)
 
 clean	:
 	make clean -C $(LIBFT)
-ifeq ($(shell echo ${LIBMLX}), $(shell ls | grep ${LIBMLX})))
-	make clean -C $(LIBMLX)
-endif
-	$(RM) $(OBJS) $(OBJS_LEAK) $(DEPS)
+	- make clean -C $(LIBMLX)
+	$(RM) $(OBJS) $(DEPS)
 
 fclean	: clean
 	make fclean -C $(LIBFT)
