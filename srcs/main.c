@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:20:06 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/11 14:46:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/11 22:21:10 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "debug.h"
 
 void	init_t_mlx(t_mlx *mlx, char **av)
 {
@@ -33,6 +34,7 @@ void	init_t_fractal(t_fractal *fractal, t_mlx *mlx)
 	fractal->color = 0;
 	fractal->resolution = set_resolution(NULL);
 	fractal->loop = calc_loop(fractal);
+	fractal->change = 0;
 	mlx->fractal = fractal;
 }
 
@@ -40,6 +42,7 @@ void	start_mlx_loop(t_mlx *mlx)
 {
 	mlx_key_hook(mlx->window, key_hook, mlx);
 	mlx_mouse_hook(mlx->window, mouse_hook, mlx);
+	mlx_hook(mlx->window, MotionNotify, PointerMotionMask, mouse_motion, mlx);
 	mlx_hook(mlx->window, DestroyNotify, StructureNotifyMask, just_exit, NULL);
 	mlx_hook(mlx->window, FocusIn, FocusChangeMask, put_fractal, mlx);
 	mlx_hook(mlx->window, KeyPress, KeyPressMask, key_press, mlx);

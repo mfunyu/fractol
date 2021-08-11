@@ -6,7 +6,7 @@
 /*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:19:44 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/05 21:19:44 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/11 22:33:09 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,31 @@ char	*t_color_to_char(t_color color)
 		return ("blue");
 	else if (color == Monochrome)
 		return ("monochrome");
+	else if (color == Rainbow)
+		return ("rainbow");
 	return (NULL);
 }
 
 int	set_color(t_fractal *fractal, int n)
 {
+	double	color_val;
+
 	if (fractal->color == Gradation)
 		return (set_gradation_color(n * 360.0 / fractal->loop));
 	else if (fractal->color == Reverse)
 		return (set_gradation_color((fractal->loop - n)
 				* 360.0 / fractal->loop));
 	else if (fractal->color == Blue)
-		return (set_gradation_color((n / 2 + fractal->loop / 2)
+		return (set_gradation_color(((n + fractal->loop) / 2)
 				* 360.0 / fractal->loop));
 	else if (fractal->color == Monochrome)
 		return (n % 2 * (int)(0xFFFFFFFF));
+	else if (fractal->color == Rainbow)
+	{
+		color_val = n + fractal->change;
+		if (color_val > fractal->loop)
+			color_val -= fractal->loop;
+		return (set_gradation_color(color_val * 360.0 / fractal->loop));
+	}
 	return (0);
 }

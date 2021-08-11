@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:27:52 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/11 14:48:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/11 22:37:52 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # define ZOOM_SPEED 30
 # define IGNORE_FREQ 100
+# define CHANGE_FREQ 5
 
 /*
 ** default settings
@@ -79,6 +80,7 @@ typedef enum e_color
 	Reverse,
 	Blue,
 	Monochrome,
+	Rainbow,
 	Num_colors
 }			t_color;
 
@@ -94,6 +96,7 @@ typedef struct s_fractal
 	int		resolution;
 	int		color;
 	int		loop;
+	int		change;
 }				t_fractal;
 
 typedef struct s_mlx
@@ -139,6 +142,7 @@ int		julia_set(double x, double y, t_fractal *frac);
 int		key_hook(int key, t_mlx *mlx);
 int		key_press(int key, t_mlx *mlx);
 int		mouse_hook(int button, int x, int y, t_mlx *mlx);
+int		mouse_motion(int x, int y, t_mlx *mlx);
 
 /*
 ** exit
