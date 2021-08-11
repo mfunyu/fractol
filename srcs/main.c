@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:20:06 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/05 21:20:06 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/11 14:46:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	start_mlx_loop(t_mlx *mlx)
 	mlx_key_hook(mlx->window, key_hook, mlx);
 	mlx_mouse_hook(mlx->window, mouse_hook, mlx);
 	mlx_hook(mlx->window, DestroyNotify, StructureNotifyMask, just_exit, NULL);
-	mlx_hook(mlx->window, FocusIn, FocusChangeMask, focus_change, mlx);
+	mlx_hook(mlx->window, FocusIn, FocusChangeMask, put_fractal, mlx);
 	mlx_hook(mlx->window, KeyPress, KeyPressMask, key_press, mlx);
 	mlx_loop(mlx->mlx);
 }

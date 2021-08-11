@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:27:52 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/05 21:27:56 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/11 14:48:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ int		julia_set(double x, double y, t_fractal *frac);
 int		key_hook(int key, t_mlx *mlx);
 int		key_press(int key, t_mlx *mlx);
 int		mouse_hook(int button, int x, int y, t_mlx *mlx);
-int		focus_change(t_mlx *mlx);
 
 /*
 ** exit

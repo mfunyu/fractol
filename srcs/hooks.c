@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:19:57 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/05 21:19:57 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/11 14:49:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,3 @@ int	mouse_hook(int button, int x, int y, t_mlx *mlx)
 	return (0);
 }
 
-int	focus_change(t_mlx *mlx)
-{
-	put_fractal(mlx);
-	return (0);
-}
