@@ -6,12 +6,11 @@
 /*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:20:06 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/12 14:45:06 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/12 21:07:29 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "debug.h"
 
 void	init_t_mlx(t_mlx *mlx, char **av)
 {
