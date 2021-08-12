@@ -6,7 +6,7 @@
 /*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:20:17 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/05 21:20:17 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/12 21:04:36 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,31 @@ int	set_screen_size(t_mlx *mlx, char *param)
 	return (0);
 }
 
+double	set_fractal_vals(char **av, int ret_real)
+{
+	static double	real = C_REAL;
+	static double	imag = C_IMAG;
+	int				error;
+	double			val;
+
+	if (ret_real == true)
+		return (real);
+	if (ret_real == false)
+		return (imag);
+	if (av)
+	{
+		val = ft_atof_check(av[0], &error);
+		if (error)
+			return (0);
+		real = val;
+		val = ft_atof_check(av[1], &error);
+		if (error)
+			return (1);
+		imag = val;
+	}
+	return (2);
+}
+
 void	check_params(int ac, char **av)
 {
 	int		i;
@@ -85,7 +110,7 @@ void	check_params(int ac, char **av)
 	if (ac <= 1)
 		exit_print_instruction(NULL, NULL);
 	set_fractal_type(av[1]);
-	i = 2;
+	i = 2 + set_fractal_vals(av + 2, -1);
 	while (av[i])
 	{
 		if (ft_strncmp(av[i], "-s", 3) == 0)

@@ -6,7 +6,7 @@
 /*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:20:06 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/11 22:21:10 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/12 14:45:06 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	init_t_fractal(t_fractal *fractal, t_mlx *mlx)
 	fractal->x_min = MIN;
 	fractal->y_min = MIN;
 	fractal->size = SIZE;
-	fractal->c_real = C_REAL;
-	fractal->c_imag = C_IMAG;
+	fractal->c_real = set_fractal_vals(NULL, true);
+	fractal->c_imag = set_fractal_vals(NULL, false);
 	fractal->color = 0;
 	fractal->resolution = set_resolution(NULL);
 	fractal->loop = calc_loop(fractal);

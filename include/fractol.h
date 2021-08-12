@@ -6,7 +6,7 @@
 /*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:27:52 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/11 22:37:52 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/12 15:03:00 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define UP 4
 # define DOWN 5
 
-# define INSTRUCTIONS "usage: ./fractol fractal-name [-s size] [-r type]\n\n \
+# define INSTRUCTIONS "usage: ./fractol fractal-name <val real> <val imag> [-s size] [-r type]\n\n \
   available fractals: \n \
     Julia\n \
     Mandelbrot\n\n \
@@ -121,6 +121,7 @@ void	set_zoom(t_fractal *fractal, int x_fix, int y_fix, int zoom_dir);
 */
 void	check_params(int ac, char **av);
 t_type	set_fractal_type(char *param);
+double	set_fractal_vals(char **av, int ret_real);
 int		set_screen_size(t_mlx *mlx, char *param);
 int		set_resolution(char *param);
 
