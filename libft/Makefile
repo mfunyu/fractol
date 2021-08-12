@@ -6,7 +6,7 @@
 #    By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/23 15:26:26 by mfunyu            #+#    #+#              #
-#    Updated: 2021/08/05 21:37:16 by mfunyu           ###   ########.fr        #
+#    Updated: 2021/08/12 14:45:59 by mfunyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRCS	:= ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 			ft_lstclear.c \
 			ft_lstiter.c \
 			ft_lstlast.c \
-			ft_atoi_check.c
+			ft_atoi_check.c \
+			ft_atof_check.c
 OBJS	:= $(SRCS:.c=.o)
 CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror

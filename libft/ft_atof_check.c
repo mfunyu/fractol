@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi_check.c                                    :+:      :+:    :+:   */
+/*   ft_atof_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 13:03:35 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/12 14:50:29 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/12 20:57:46 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_skip_spaces(const char **str)
+static void	skip_spaces(const char **str)
 {
 	if (str)
 	{
@@ -22,28 +22,31 @@ static void	ft_skip_spaces(const char **str)
 	}
 }
 
-int	ft_atoi_check(const char *n, int *error)
+double	ft_atof_check(const char *s, int *error)
 {
-	long long	nb;
-	int			sign;
+	double	nb;
+	int		sign;
+	int		digits;
 
 	nb = 0;
+	digits = -1;
 	sign = 1;
 	*error = ERROR;
-	ft_skip_spaces(&n);
-	if (*n == '-' || *n == '+')
-		sign *= 44 - *n++;
-	while (ft_isdigit(*n))
+	skip_spaces(&s);
+	if (*s == '-' || *s == '+')
+		sign *= 44 - *s++;
+	while (ft_isdigit(*s) || (*s == '.' && digits == -1))
 	{
 		*error = 1;
-		nb = nb * 10 + (*n++ - '0');
-		if (nb * sign < INT_MIN || INT_MAX < nb * sign)
-		{
-			*error = ERROR;
-			return (0);
-		}
+		if (*s == '.' || digits >= 0)
+			digits++;
+		if (digits != 0)
+			nb = nb * 10 + (*s - '0');
+		s++;
 	}
-	if (*error == 1 && *n == '\0')
+	if (*error == 1 && *s == '\0')
 		*error = SUCCESS;
-	return ((int)(nb * sign));
+	while (digits-- > 0)
+		nb /= 10;
+	return (nb * sign);
 }

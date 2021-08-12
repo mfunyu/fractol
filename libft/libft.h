@@ -6,7 +6,7 @@
 /*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:15:38 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/05 14:48:24 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/12 14:33:25 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ size_t				ft_strlen(const char *str);
 char				*ft_strchr(const char *s, int c);
 int					ft_atoi(const char *n);
 int					ft_atoi_check(const char *n, int *error);
+double				ft_atof_check(const char *n, int *error);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
