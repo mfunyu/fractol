@@ -6,7 +6,7 @@
 /*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:20:17 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/12 21:04:36 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/13 22:02:44 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	set_screen_size(t_mlx *mlx, char *param)
 		return (screen_size);
 	if (!param_size && param)
 	{
-		param_size = max(0, ft_atoi_check(param, &error));
-		if (error)
+		param_size = ft_atoi_check(param, &error);
+		if (error || param_size <= 0)
 			exit_print_instruction(NULL, NULL);
 	}
 	if (mlx)
