@@ -6,7 +6,7 @@
 /*   By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:19:57 by mfunyu            #+#    #+#             */
-/*   Updated: 2021/08/11 22:37:28 by mfunyu           ###   ########.fr       */
+/*   Updated: 2021/08/16 22:54:51 by mfunyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,16 @@ int	mouse_motion(int x, int y, t_mlx *mlx)
 
 	(void)x;
 	(void)y;
-	if (cnt++ >= INT_MAX - 1)
-		cnt = 0;
-	if (cnt % CHANGE_FREQ)
-		return (0);
-	mlx->fractal->change++;
-	if (mlx->fractal->change >= mlx->fractal->loop)
-		mlx->fractal->change = 0;
-	put_fractal(mlx);
+	if (mlx->fractal->color == Rainbow)
+	{
+		if (cnt++ >= INT_MAX - 1)
+			cnt = 0;
+		if (cnt % CHANGE_FREQ)
+			return (0);
+		mlx->fractal->change++;
+		if (mlx->fractal->change >= mlx->fractal->loop)
+			mlx->fractal->change = 0;
+		put_fractal(mlx);
+	}
 	return (0);
 }
